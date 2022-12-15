@@ -14,7 +14,7 @@ const getSetting = async (req, res) => {
 
 const updateSetting = async (req, res) => {
 	try {
-		await expenseModel.findOneAndUpdate(
+		await settingModel.findOneAndUpdate(
 			{ userid: req.body.userid },
 			req.body.payload
 		)
