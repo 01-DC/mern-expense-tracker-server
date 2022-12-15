@@ -39,9 +39,9 @@ const editExpense = async (req, res) => {
 
 const addExpense = async (req, res) => {
 	try {
-		const newTransection = new expenseModel(req.body)
-		await newTransection.save()
-		res.status(201).send("Expense Created")
+		const newExpense = new expenseModel(req.body)
+		await newExpense.save()
+		res.status(201).json(newExpense)
 	} catch (error) {
 		console.log(error)
 		res.status(500).json(error)
