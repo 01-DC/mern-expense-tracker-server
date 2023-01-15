@@ -7,6 +7,7 @@ const loginController = async (req, res) => {
 		if (!user) {
 			return res.status(404).send("User Not Found")
 		}
+		user.password = undefined
 		res.status(200).json({ success: true, user })
 	} catch (error) {
 		res.status(400).json({ success: false, error })
@@ -23,4 +24,22 @@ const registerController = async (req, res) => {
 	}
 }
 
-module.exports = { loginController, registerController }
+const getUserByEmailController = async (req, res) => {
+	try {
+		const { email } = req.body
+		const user = await userModel.findOne({ email })
+		if (!user) {
+			return res.status(404).send("User does not exist")
+		}
+		user.password = undefined
+		return res.status(200).json({ success: true, user })
+	} catch (error) {
+		res.status(400).json({ success: false, error })
+	}
+}
+
+module.exports = {
+	loginController,
+	registerController,
+	getUserByEmailController,
+}

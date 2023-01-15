@@ -18,6 +18,13 @@ const expenseSchema = new mongoose.Schema(
 			type: String,
 			required: [true, "description is required"],
 		},
+		split: [
+			{
+				email: String,
+				name: String,
+				paid: Boolean,
+			}
+		]
 	},
 	{ timestamps: true }
 )
