@@ -48,9 +48,37 @@ const addExpense = async (req, res) => {
 	}
 }
 
+const splitExpense = async (req, res) => {
+	try {
+		await expenseModel.findOneAndUpdate(
+			{ _id: req.body.expenseId },
+			{ $push: { split: req.body.payload } }
+		)
+		res.status(200).send("Split successful")
+	} catch (error) {
+		console.log(error)
+		res.status(500).json(error)
+	}
+}
+
+const splitStatusToggle = async (req, res) => {
+	try {
+		const { splitId, status } = req.body
+		await expenseModel.findOneAndUpdate(
+			{ "split._id": splitId },
+			{ $set: { "split.$.paid": status } }
+		)
+	} catch (error) {
+		console.log(error)
+		res.status(500).json(error)
+	}
+}
+
 module.exports = {
 	getAllExpense,
 	addExpense,
 	editExpense,
 	deleteExpense,
+	splitExpense,
+	splitStatusToggle,
 }

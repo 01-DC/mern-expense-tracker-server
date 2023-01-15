@@ -5,6 +5,8 @@ const {
 	getAllExpense,
 	editExpense,
 	deleteExpense,
+	splitExpense,
+	splitStatusToggle,
 } = require("../controllers/expenseController")
 
 const router = express.Router()
@@ -16,5 +18,9 @@ router.post("/edit-expense", editExpense)
 router.post("/delete-expense", deleteExpense)
 
 router.post("/get-expense", getAllExpense)
+
+router.post("/split-expense", splitExpense)
+
+router.post("/toggle-split", splitStatusToggle)
 
 module.exports = router
