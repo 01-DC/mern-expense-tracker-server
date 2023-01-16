@@ -68,6 +68,20 @@ const splitStatusToggle = async (req, res) => {
 			{ "split._id": splitId },
 			{ $set: { "split.$.paid": status } }
 		)
+		return res.status(200).send("Status toggled")
+	} catch (error) {
+		console.log(error)
+		res.status(500).json(error)
+	}
+}
+
+const getAllSplitExpense = async (req, res) => {
+	try {
+		const expenses = await expenseModel.find({
+			"split.email": req.body.userid,
+			"split.paid": false,
+		})
+		res.status(200).json(expenses)
 	} catch (error) {
 		console.log(error)
 		res.status(500).json(error)
@@ -81,4 +95,5 @@ module.exports = {
 	deleteExpense,
 	splitExpense,
 	splitStatusToggle,
+	getAllSplitExpense,
 }

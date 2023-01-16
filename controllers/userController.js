@@ -29,7 +29,7 @@ const getUserByEmailController = async (req, res) => {
 		const { email } = req.body
 		const user = await userModel.findOne({ email })
 		if (!user) {
-			return res.status(404).send("User does not exist")
+			return res.status(200).json({ success: false })
 		}
 		user.password = undefined
 		return res.status(200).json({ success: true, user })
